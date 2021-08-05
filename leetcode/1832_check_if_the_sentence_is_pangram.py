@@ -12,6 +12,7 @@ class Solution:
                      "y", "z"]
         counter = 0
         for item in alphabets:
-            if item in sentence:
+            # Check if a alphabet is not present in a given string
+            if item not in sentence:
                 counter += 1
-        return counter >= 26
+        return counter == 0
