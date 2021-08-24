@@ -13,13 +13,19 @@ def fibonacci_numbers(number):
     :param number: Number(position) in the Fibonacci sequence
     :return: The integer present at a given position in the Fibonacci sequence
     """
-    if number == 0 or number == 1:
+    if number == 0:
+        return 0
+    if number == 1:
         return 1
-    else:
-        old, new = 1, 1
-        for i in range(number -1):
-            new, old = old, old + new
-        return new
+
+    fib_seq = [0, 1]
+    for i in range(2, number+1):
+        current = fib_seq[i-2] + fib_seq[i-1]
+        fib_seq.append(current)
+    return fib_seq[number]
+
 
 # Test:
-print(fibonacci_numbers(6))
+print("For input number {}, fib output is {}".format(0, fibonacci_numbers(0)))
+print("For input number {}, fib output is {}".format(1, fibonacci_numbers(1)))
+print("For input number {}, fib output is {}".format(8, fibonacci_numbers(8)))
