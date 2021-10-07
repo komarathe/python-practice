@@ -43,7 +43,7 @@ def get_sequences(file_path):
             headers.append(line)
             continue
         if line.startswith(">"):
-            headers.append(headers)
+            headers.append(line)
             all_seqs.append("".join(seq))
             seq = []
         else:
