@@ -50,29 +50,33 @@ def get_cli_args():
     return parser.parse_args()
 
 
-def get_codons(gen_code_dict):
+def get_codons(gen_code):
     """
-    :param gen_code_dict: Genetic code dictionary
-    :return: Dictionary of amino acid counts for each codon
+    :param gen_code: Genetic code dictionary
+    :return: A dictionary where a key is amino acid and value is total number of
+            codons it comes from.
     """
+    # A dictionary to hold the count of codons each amino acid comes from
     aa_dict = {}
-    for item in gen_code_dict:
-        if gen_code_dict[item] not in aa_dict:
-            aa_dict[gen_code_dict[item]] = 1
+    for item in gen_code:
+        if gen_code[item] not in aa_dict:
+            aa_dict[gen_code[item]] = 1
         else:
-            aa_dict[gen_code_dict[item]] += 1
+            aa_dict[gen_code[item]] += 1
     return aa_dict
 
 
 def get_possible_aa(aa_seq):
     """
-    :param aa_seq: get_codons() output, dictionary of amino acid counts for
-    each codon
+    :param aa_seq: Given amino acid (protein) sequence for which we want to
+                   count the total number of different RNA strings from which
+                   the protein could have been translated.
     """
-    codon_count = get_codons(gen_code)
-    result = codon_count["_"]
+    aa_dict = get_codons(gen_code)
+    # Get count of stop codon, which is denoted as _ in the gen_code dictionary
+    result = aa_dict["_"]
     for aa in aa_seq:
-        result = (result * codon_count[aa]) % 1000000
+        result = (result * aa_dict[aa]) % 1000000
     print(result)
 
 
