@@ -14,11 +14,19 @@ therefore, there will be exactly one destination city.
 
 class Solution:
     def destCity(self, paths: List[List[str]]) -> str:
-        list1 = []
-        list2 = []
+        # Create a list of cities the path starts from
+        from_cities = []
+        # Create a list of destination cities
+        to_cities = []
+
         for item in paths:
-            list1.append(item[0])
-            list2.append(item[1])
-        for item in list2:
-            if item not in list1:
+            # Add first city in the path to from cities
+            from_cities.append(item[0])
+            # Add second city in the path to destination cities
+            to_cities.append(item[1])
+
+        for item in to_cities:
+            # Get the city from which there is no path that goes to any other
+            # city
+            if item not in from_cities:
                 return item
